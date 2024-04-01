@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Theme } from '@emotion/react';
-import { Button, NewWindowIcon } from '@databricks/design-system';
+import { Button, ChartLineIcon, NewWindowIcon } from '@databricks/design-system';
 import { FormattedMessage } from 'react-intl';
 import { PageHeader } from '../../../../../shared/building_blocks/PageHeader';
 import { ExperimentViewCopyTitle } from './ExperimentViewCopyTitle';
@@ -25,7 +25,7 @@ export const ExperimentViewHeader = React.memo(
       () => experiment.name.split('/').pop(),
       [experiment.name],
     );
-
+    
     const feedbackFormUrl = useExperimentPageFeedbackUrl();
     const [namespace, setNamespace] = useState<string>('');
 
@@ -46,6 +46,7 @@ export const ExperimentViewHeader = React.memo(
                     description='Link to the corresponding experiment in the Aim UI'
                   />
                 </Button>
+                <ChartLineIcon css={{ marginLeft: 4 }} />
               </a>
             {feedbackFormUrl && (
                 <a href={feedbackFormUrl} target='_blank' rel='noreferrer'>
