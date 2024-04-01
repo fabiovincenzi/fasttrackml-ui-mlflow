@@ -89,7 +89,7 @@ class App extends Component {
       });
     });
 
-    fetch(`/admin/namespaces/list`)
+    fetch(`/chooser/namespaces`)
       .then((response) => response.json())
       .then((data) => {
         this.setState({
@@ -97,7 +97,7 @@ class App extends Component {
         });
       });
 
-    fetch(`${getBasePath()}admin/namespaces/current`)
+    fetch(`${getBasePath()}chooser/namespaces/current`)
       .then((response) => response.json())
       .then((data) => {
         this.setState({
