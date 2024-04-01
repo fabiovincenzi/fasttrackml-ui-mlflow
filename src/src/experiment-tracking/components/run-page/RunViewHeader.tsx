@@ -1,6 +1,6 @@
 import { FormattedMessage } from 'react-intl';
 import { Link } from '../../../common/utils/RoutingUtils';
-import { Button } from '@databricks/design-system';
+import { Button, ChartLineIcon } from '@databricks/design-system';
 import { OverflowMenu, PageHeader } from '../../../shared/building_blocks/PageHeader';
 import Routes from '../../routes';
 import { ExperimentEntity } from '../../types';
@@ -71,6 +71,7 @@ export const RunViewHeader = ({
                     description='Link to the corresponding experiment in the Aim UI'
                   />
                 </Button>
+                <ChartLineIcon css={{ marginLeft: 4 }} />
               </a>
         <OverflowMenu
           menu={[
