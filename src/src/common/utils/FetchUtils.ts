@@ -13,6 +13,7 @@ import { ErrorWrapper } from './ErrorWrapper';
 
 interface GlobalScope extends Window {
   API_BASE_PATH?: string;
+  PREFIX?: string;
 }
 
 let globalScope: GlobalScope;
@@ -26,6 +27,10 @@ try {
 
 export const getBasePath = () => {
   return `${globalScope.API_BASE_PATH}`;
+};
+
+export const getPrefix = () => {
+  return `${globalScope.PREFIX}`;
 };
 
 export const HTTPMethods = {
@@ -106,7 +111,18 @@ export const yamlResponseParser = ({ resolve, response }: any) =>
 export const defaultError = ({ reject, response, err }: any) => {
   console.error('Fetch failed: ', response || err);
   if (response) {
-    response.text().then((text: any) => reject(new ErrorWrapper(text, response.status)));
+    response.text().then((text: string) => {
+      try {
+        const json = JSON.parse(text);
+        // If user is not authorized, redirect to login page
+        if (json.error_code === 'RESOURCE_DOES_NOT_EXIST') {
+          window.location.href = getPrefix();
+        }
+        reject(new ErrorWrapper(json, response.status));
+      } catch (e) {
+        reject(new ErrorWrapper(text, response.status));
+      }
+    });
   } else if (err) {
     reject(new ErrorWrapper(err, 500));
   }
